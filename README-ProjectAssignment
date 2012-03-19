@@ -1,0 +1,75 @@
+PROJECT #2
+
+CS 5346: Advanced Artificial Intelligence
+
+Due Date: April 16, 2012
+
+Form a team of a maximum of two students.
+
+Develop programs by implementing algorithms MINMAX-A-B (Rich & Knight)
+and ALPHA-BETA-SEARCH (Russell & Norvig) in C or C++, language. Devise
+Deep-Enough (use some heuristics as given in Rich and Knight’s book) and
+Move-Gen functions.
+
+Use Tic-Tac-Toe game as an example to test your program with a standard
+evaluation function discussed in the class
+
+You are expected to develop the program as a team. After the program is
+developed and tested with a standard evaluation function, each member of the
+team will work separately to do the following:
+
+Create three evaluation functions; one must be admissible, one non-
+admissible, and the third could be either admissible or non-admissible.
+These functions should be different than those discussed in the class.
+Execute your programs with the data and analyze the performance of the
+two algorithms as well as of your evaluation functions along with the
+evaluation functions discussed in the class by tabulating the total length
+of the game path and total number of nodes generated. Also, tabulate the
+number of nodes generated for determining each move of the players for
+different depths (2 to 10). Compare the performance of your evaluation
+functions with the evaluation functions discussed in the class. Also,
+analyze results for different depths.
+Analyze the results and write the conclusions you draw from these
+analyses.
+Write his/her documentation explaining the problem, methodology,
+program, description of evaluation functions, any special approaches used,
+and conclusions drawn from your analyses.
+Demonstrate the execution of the program, if asked by the instructor.
+
+Note that writing an efficient and working program is only half of the project.
+The other half of the project is to present it in the best possible, understandable
+form.
+
+Project Submission Instructions
+
+HARD COPY SUBMISSION:
+Prepare and submit your well documented hard copy
+[ABSOLUTELY NO EMAILS; Minus 50 points for email
+submissions] of the project report (spiral bound), explaining the
+problem, domain, decision tree, rules, methodology, the program,
+modifications to the program, analysis of the program and the
+analyses of results before and after your modifications were
+incorporated.
+
+ELECTRONIC SUBMISSION:
+Upload source code file as well as other files needed to run the
+program and verify your results. Also, include a file with complete
+detailed instruction for running your program. Source code file
+naming convention must be: Project2-student ID.cpp; Naming
+convention of other files will be similar except the file extensions.
+The file uploading instructions are given below:
+
+Open a web browser and navigate to https://hwupload.cs.txstate.edu
+Login with your Texas State Net ID and password.
+Click the “Open Class” button for the class you wish to upload to.
+Click the “Choose File” button to select a file from your computer.
+For multiple files, use separate “Choose File” buttons.
+5) Click the “Upload” button to upload the file.
+6) After uploading files, you will see a list of files uploaded with
+timestamp and size. You can download the files by clicking on the
+name.
+
+EACH STUDENT MUST PERFORM STEPS 1 TO 5
+INDIVIDUALLY. DO NOT COPY PROGRAMS FROM ANY SOURCE EXCEPT
+THE PROGRAMS I HAVE PROVIDED THROUGH TRACS. ALSO, DO NOT
+COPY REPORT FROM YOUR PARTNER OR ANY OTHER PERSON.
