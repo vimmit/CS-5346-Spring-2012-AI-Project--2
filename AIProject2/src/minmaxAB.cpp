@@ -17,31 +17,48 @@ struct result {
 };
 
 bool deepEnough(vector<int> position, int depth) {
-	//Just a stub
-	return true;
+	//Just a stub. Depth hardcoded @ 4
+	if (depth > 3)	return true;
+	return false;
 }
 
 vector<vector <int> > moveGen(vector<int> position, int player) {
-	//Just a stub
+	//Return a vector of all possible moves for evaluation
 	vector<vector <int> > results;
+
+	//Scan through the current position. For every blank square, add that potential move to the results
+	for (vector<int>::size_type i = 0; i != position.size(); i++) {
+		if (position[i] == 0) {
+			//Add the current position
+			results.push_back(position);
+			//Update the position with the move to the blank position
+			//results.end()[i] = player;
+		}
+	}
 	return results;
 }
 
 int oppositePlayer(int player) {
-	//Just a stub
-	return 1;
+	//If player 1, return player 2.
+	if (player == 1) return 2;
+	//Otherwise, return player 1
+	else return 1;
+}
+
+int evaluate(vector<int> position, int player) {
+	return 0;
 }
 
 result minMaxAB(vector<int> position, int depth, int player, int useThresh, int passThresh) {
 	result res;
-	string bestPath = '';
+	string bestPath;
 	/* 1. If DEEP-ENOUGH(Position, Depth), then return the structure
         	VALUE = STATlC (Position, Player);
         	PATH = nil
 	 */
 	if (deepEnough(position, depth)) {
-		res.score = 0; //Evaluate(Position, Player)
-		res.path = '';
+		res.score = evaluate(position, player);
+		//res.path = '';
 		return res;
 	}
 
@@ -55,8 +72,8 @@ result minMaxAB(vector<int> position, int depth, int player, int useThresh, int 
 	 * return the same structure that 	would have been returned if DEEP-ENOUGH had returned TRUE.
 	 */
 	if ((int) successors.empty()) {
-		res.score = 0; //Evaluate(Position, Player)
-		res.path = '';
+		res.score = evaluate(position, player);
+		//res.path = '';
 		return res;
 	}
 	/*4. If SUCCESSORS is not empty, then go through it, examining each element and keeping track of the best
