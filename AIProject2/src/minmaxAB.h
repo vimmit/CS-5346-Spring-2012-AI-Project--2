@@ -22,7 +22,7 @@ struct result {
 
 class minMaxABAlg {
 	public:
-		static result minMaxAB(vector<int> position, int depth, int player, int useThresh, int passThresh);
+		static result minMaxAB(vector<int> position, int depth, int player, int useThresh, int passThresh, int evalFunction);
 };
 
 #endif /* MINMAXAB_H_ */

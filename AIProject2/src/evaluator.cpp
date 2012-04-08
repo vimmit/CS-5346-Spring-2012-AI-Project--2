@@ -15,6 +15,7 @@ struct winningRow {
 	int a,b,c;
 };
 
+//Used to generate a vector of winningRows: 834, 816, 852, 159, 672, 357, 492, 456
 void initWinningRows(vector<winningRow> &winningRows) {
 	winningRow tmp;
 
@@ -76,60 +77,99 @@ int oppositePlayer2(int player) {
 	else return 1;
 }
 
-void displayBoard2(vector<int> board) {
-	cout << "  " << board[8] << "  |" << "  " << board[3] << "  |" << "  " << board[4] << endl;
-	cout << "-----------------" << endl;
-	cout << "  " << board[1] << "  |" << "  " << board[5] << "  |" << "  " << board[9] << endl;
-	cout << "-----------------" << endl;
-	cout << "  " << board[6] << "  |" << "  " << board[7] << "  |" << "  " << board[2] << endl << endl;
+int checkWin(vector<int> board) {
+	//Test all player 1 wins
+	if (	(board[8] == 1 && board[3] == 1 && board[4] == 1) ||
+			(board[8] == 1 && board[5] == 1 && board[2] == 1) ||
+			(board[8] == 1 && board[1] == 1 && board[6] == 1) ||
+			(board[3] == 1 && board[5] == 1 && board[7] == 1) ||
+			(board[4] == 1 && board[9] == 1 && board[2] == 1) ||
+			(board[1] == 1 && board[5] == 1 && board[9] == 1) ||
+			(board[4] == 1 && board[5] == 1 && board[6] == 1) ||
+			(board[6] == 1 && board[7] == 1 && board[2] == 1)
+	) return 1;
+
+	//Test all player 2 wins
+	else if (	(board[8] == 2 && board[3] == 2 && board[4] == 2) ||
+				(board[8] == 2 && board[5] == 2 && board[2] == 2) ||
+				(board[8] == 2 && board[1] == 2 && board[6] == 2) ||
+				(board[3] == 2 && board[5] == 2 && board[7] == 2) ||
+				(board[4] == 2 && board[9] == 2 && board[2] == 2) ||
+				(board[1] == 2 && board[5] == 2 && board[9] == 2) ||
+				(board[4] == 2 && board[5] == 2 && board[6] == 2) ||
+				(board[6] == 2 && board[7] == 2 && board[2] == 2)
+		) return 2;
+	return 0;
 }
 
-int Evaluator::evaluate(vector<int> board, int player1) {
-	//cout << "Evaluating..." << endl;
-	//displayBoard2(board);
-	vector<winningRow> winningRows;
-	initWinningRows(winningRows);
+int Evaluator::evaluate(vector<int> board, int max, int evalFunction = 1) {
+	int score;
 
-	//Player 1 score = # Winning Vectors - rows killed by player 2.
-	for (int i = 1; i < 10; i++) {
-		if (board[i] == oppositePlayer2(player1)) {
-			vector<winningRow>::iterator it;
-			for (it=winningRows.begin(); it < winningRows.end(); it++) {
-				if (it->a == i || it->b == i || it->c == i) {
-					winningRows.erase(it);
-					it--;
+	int checkWinResult = checkWin(board);
+	if (checkWinResult > 0) {
+		//If Max has won
+		if (checkWinResult == max) score = 999;
+		//else Min has won
+		else score = -999;
+		return score;
+	}
+
+	switch (evalFunction) {
+	case 2:
+		//TODO: Fill in
+		score = 0;
+		break;
+	case 3:
+		//TODO: Fill in
+		score =0;
+		break;
+	case 4:
+		//TODO: Fill in
+		score = 0;
+		break;
+
+	default:
+		vector<winningRow> winningRows;
+		winningRows.clear();
+		initWinningRows(winningRows);
+		int min = oppositePlayer2(max);
+
+		//Player 1 score = # Winning Vectors - rows killed by player 2.
+		for (int i = 1; i < 10; i++) {
+			if (board[i] == min) {
+				vector<winningRow>::iterator it;
+				for (it=winningRows.begin(); it < winningRows.end(); it++) {
+					if (it->a == i || it->b == i || it->c == i) {
+						it--;
+						winningRows.erase(it+1);
+					}
 				}
 			}
 		}
-	}
-	int player1Score;
-	player1Score = (int) winningRows.size();
+		int maxScore = (int) winningRows.size();
+		//Reset winningRows
+		winningRows.clear();
+		initWinningRows(winningRows);
 
-	//Reset winningRows
-	winningRows.clear();
-	initWinningRows(winningRows);
-
-	//Player 2 score = # Winning Vectors - rows killed by player 1.
-	for (int i = 1; i < 10; i++) {
-		if (board[i] == player1) {
-			//cout << "i: " << i << " | " << board[i] << endl;
-			vector<winningRow>::iterator it;
-
-			for (it=winningRows.begin(); it < winningRows.end(); it++) {
-				//cout << "Checking: " << it->a << it->b << it->c <<endl;
-				if (it->a == i || it->b == i || it->c == i) {
-					//cout << "Erasing: " << it->a << it->b << it->c <<endl;
-					winningRows.erase(it);
-					it--;
+		//Min score = # Winning Vectors - rows killed by max.
+		for (int i = 1; i < 10; i++) {
+			if (board[i] == max) {
+				vector<winningRow>::iterator it;
+				for (it=winningRows.begin(); it < winningRows.end(); it++) {
+					if (it->a == i || it->b == i || it->c == i) {
+						it--;
+						winningRows.erase(it+1);
+					}
 				}
 			}
 		}
-	}
+		int minScore = (int) winningRows.size();
 
-		int player2Score;
-		player2Score = (int) winningRows.size();
-		//cout << "P1 = " << player1Score << " P2 = " << player2Score << " Final:" << player1Score - player2Score << endl;
-		return player1Score - player2Score;
+		//Score = MaxScore = MinScore
+		score = maxScore - minScore;
+		break;
+	}
+	return score;
 }
 
 

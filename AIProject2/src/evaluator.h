@@ -14,7 +14,7 @@ using namespace std;
 
 class Evaluator {
 	public:
-		static int evaluate(vector<int> board, int player);
+		static int evaluate(vector<int> board, int player, int evalFunction);
 };
 
 #endif /* EVALUATOR_H_ */
