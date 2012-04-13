@@ -52,7 +52,7 @@ bool hasWinner(vector<int> board) {
 
 bool deepEnough(vector<int> position, int depth) {
 	//Just a stub. Depth hardcoded @ 3
-	if (depth > 5)	return true;
+	if (depth > 1)	return true;
 	if (hasWinner(position)) return true;
 	return false;
 }

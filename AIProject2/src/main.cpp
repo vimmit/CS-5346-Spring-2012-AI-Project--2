@@ -10,6 +10,8 @@
 #include <stack>
 #include <time.h>
 #include "minmaxAB.h"
+#include "AB_search.h"
+#include "helper.h"
 
 using namespace std;
 
@@ -137,6 +139,10 @@ int main() {
 				if (useRichAlgorithm) res = minMaxABAlg::minMaxAB(board, depth, player, 999,-999, evaluationFunction);
 				else {
 					//TODO: SET res = ALPHA-BETA-SEARCH()
+					AB_search abSearch(board, player);
+					result absearchresult = abSearch.evaluate();
+					cout << "AB result:" << absearchresult.path.top() << "|" << endl;
+					res.path.push(absearchresult.path.top());
 				}
 				depth++;
 			}

@@ -12,13 +12,9 @@
 #include <vector>
 #include <stack>
 #include "evaluator.h"
+#include "helper.h"
 
 using namespace std;
-
-struct result {
-	int score;
-	stack<int> path;
-};
 
 class minMaxABAlg {
 	public:

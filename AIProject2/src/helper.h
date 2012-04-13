@@ -9,7 +9,14 @@
 #define HELPER_H_
 
 #include <vector>
+#include <stack>
+
 using namespace std;
+
+struct result {
+	int score;
+	stack<int> path;
+};
 
 vector<vector <int> > moveGen(vector<int> position, int player);
 bool hasWinner(vector<int> board);
