@@ -1,3 +1,7 @@
+//AB_search.h
+//Author: Michael Grayson
+//This file contains the declaration of the AB_search class
+
 #ifndef AB_SEARCH_H
 #define AB_SEARCH_H
 
@@ -5,22 +9,17 @@
 
 using namespace std;
 
-
-
 class AB_search{
 	private:
-		vector<int> board;
-		int player;
-		//static const int DEPTH = 4;
+		vector<int> board;		//holds the board state
+		int player;				//holds the current player
+		int heuristic_number;	//holds the number for the heuristic that will be used
+		int maxDepth;			//holds the max depth for deepEnough evaluation
 
 		//helper functions
-		//bool deepEnough(vector<int> position, int depth);
-		//vector<int>& get_result(int player, int action_value)
 		int curr_player();
-		int heuristic(vector<int> state);
 		int min(int val1, int val2);
 		int max(int val1, int val2);
-		int utility(vector<int> state, int heuristic_num);
 
 		vector<int> actions(vector<int> state);
 
@@ -28,8 +27,10 @@ class AB_search{
 		result min_value(vector<int> state, int _alpha, int _beta, int heuristic_num, int depth);
 
 	public:
+		//constructor
+		AB_search(vector<int>& board, int player, int heuristic_number, int maxDepth);
 
-		AB_search(vector<int>&, int);
+		//public method
 		result evaluate();
 
 };

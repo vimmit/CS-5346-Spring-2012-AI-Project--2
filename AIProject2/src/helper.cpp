@@ -50,9 +50,9 @@ bool hasWinner(vector<int> board) {
 	return false;
 }
 
-bool deepEnough(vector<int> position, int depth) {
+bool deepEnough(vector<int> position, int depth, int maxDepth) {
 	//Just a stub. Depth hardcoded @ 3
-	if (depth > 1)	return true;
+	if (depth > maxDepth)	return true;
 	if (hasWinner(position)) return true;
 	return false;
 }

@@ -17,8 +17,12 @@
 using namespace std;
 
 class minMaxABAlg {
+
+
 	public:
-		static result minMaxAB(vector<int> position, int depth, int player, int useThresh, int passThresh, int evalFunction);
+		//methods
+		static result minMaxAB(vector<int> position, int depth, int player, int useThresh, int passThresh, int evalFunction, int maxDepth);
+
 };
 
 #endif /* MINMAXAB_H_ */

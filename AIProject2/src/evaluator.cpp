@@ -140,26 +140,56 @@ int Evaluator::evaluate(vector<int> board, int max, int evalFunction = 1) {
 				vector<winningRow>::iterator it;
 				for (it=winningRows.begin(); it < winningRows.end(); it++) {
 					if (it->a == i || it->b == i || it->c == i) {
-						it--;
-						winningRows.erase(it+1);
+						if(it == winningRows.begin())
+						{
+							//handles case where it is pointing to first element
+							winningRows.erase(it);
+							it = winningRows.begin();
+						}
+						else
+						{
+							it--;
+							winningRows.erase(it+1);
+						}
+
+						//handles case where all rows have been erased before
+						//finishing loop
+						if(winningRows.size() == 0)
+							break;
 					}
 				}
 			}
 		}
+
 		int maxScore = (int) winningRows.size();
 		//Reset winningRows
 		winningRows.clear();
 		initWinningRows(winningRows);
 
+		//bool done = false;
 		//Min score = # Winning Vectors - rows killed by max.
 		for (int i = 1; i < 10; i++) {
 			if (board[i] == max) {
 				vector<winningRow>::iterator it;
 				for (it=winningRows.begin(); it < winningRows.end(); it++) {
 					if (it->a == i || it->b == i || it->c == i) {
-						it--;
-						winningRows.erase(it+1);
+						if(it == winningRows.begin())
+						{
+							//handles case where it is pointing to first element
+							winningRows.erase(it);
+							it = winningRows.begin();
+						}
+						else
+						{
+							it--;
+							winningRows.erase(it+1);
+						}
 					}
+
+					//handles case where all rows have been erased before
+					//finishing loop
+					if(winningRows.size() == 0)
+						break;
 				}
 			}
 		}
@@ -171,6 +201,3 @@ int Evaluator::evaluate(vector<int> board, int max, int evalFunction = 1) {
 	}
 	return score;
 }
-
-
-

@@ -4,7 +4,7 @@
  *  Created on: Mar 25, 2012
  *      Author: dgodwin
  */
-
+#include <string>
 #include <vector>
 #include <iostream>
 #include <stack>
@@ -78,6 +78,7 @@ int main() {
 	bool humanPlayer = false; //If there is a human player. Human players are always Player 1 or X
 	bool useRichAlgorithm = true; // Which algorithm to use
 	int evaluationFunction; // 1 -4 corresponding to heuristic functions
+	int maxDepth =0; //Max Depth used in deepEnough
 
 	cout << "*************************************************************************" << endl;
 	cout << "*************************************************************************" << endl;
@@ -116,6 +117,11 @@ int main() {
 	cout << endl;
 	if (evaluationFunction < 0 || evaluationFunction > 4) evaluationFunction = 1;
 
+	while (maxDepth < 2 || maxDepth > 10) {
+		cout << "Choose Maximum Depth (2-10):";
+		cin >> maxDepth;
+	}
+
 	srand ( time(NULL) );
 	int first = (rand() % (2))+1;
 	cout << "Player " << first << " goes first!" << endl << endl;
@@ -136,10 +142,10 @@ int main() {
 				}
 				res.path.push(move);
 			} else {
-				if (useRichAlgorithm) res = minMaxABAlg::minMaxAB(board, depth, player, 999,-999, evaluationFunction);
+				if (useRichAlgorithm) res = minMaxABAlg::minMaxAB(board, depth, player, 999,-999, evaluationFunction, maxDepth);
 				else {
 					//TODO: SET res = ALPHA-BETA-SEARCH()
-					AB_search abSearch(board, player);
+					AB_search abSearch(board, player, evaluationFunction,maxDepth);
 					result absearchresult = abSearch.evaluate();
 					cout << "AB result:" << absearchresult.path.top() << "|" << endl;
 					res.path.push(absearchresult.path.top());
@@ -147,7 +153,6 @@ int main() {
 				depth++;
 			}
 		}
-
 		board[res.path.top()] = player;
 		//else turn = 999; //board[firstAvailableMove(board)] = player;
 		//Display Board

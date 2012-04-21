@@ -20,7 +20,7 @@ struct result {
 
 vector<vector <int> > moveGen(vector<int> position, int player);
 bool hasWinner(vector<int> board);
-bool deepEnough(vector<int> position, int depth);
+bool deepEnough(vector<int> position, int depth, int maxDepth);
 
 
 #endif /* HELPER_H_ */

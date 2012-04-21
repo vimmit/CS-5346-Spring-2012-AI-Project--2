@@ -23,7 +23,7 @@ int oppositePlayer(int player) {
 	else return 1;
 }
 
-result minMaxABAlg::minMaxAB(vector<int> position, int depth, int player, int useThresh, int passThresh, int evalFunction = 1) {
+result minMaxABAlg::minMaxAB(vector<int> position, int depth, int player, int useThresh, int passThresh, int evalFunction = 1, int maxDepth = 2) {
 //result minMaxAB(vector<int> position, int depth, int player, int useThresh, int passThresh) {
 	//cout << "In MinMaxAB. depth: " << depth << " player:" << player << " UseThresh:" << useThresh << " PassThresh:" <<passThresh << endl;
 	result res;
@@ -34,7 +34,7 @@ result minMaxABAlg::minMaxAB(vector<int> position, int depth, int player, int us
         	VALUE = STATlC (Position, Player);
         	PATH = nil
 	 */
-	if (deepEnough(position, depth)) {
+	if (deepEnough(position, depth, maxDepth)) {
 		//cout << "deep enough" << endl;
 		res.score = Evaluator::evaluate(position, player, evalFunction);
 		res.path.push(position[0]);
@@ -62,7 +62,7 @@ result minMaxABAlg::minMaxAB(vector<int> position, int depth, int player, int us
 	//cout << "looping through successors" << endl;
 	for (vector<vector <int> >::iterator it = successors.begin(); it != successors.end(); ++it) {
 		//(a) Set RESULT-SUCC to MINIMAX-A-B(SUCC, Depth + 1, OPPOSlTE (Player),- Pass-Thresh, - Use-Thresh).
-		result resultSucc = minMaxAB(*it, depth+1, oppositePlayer(player), passThresh*-1, useThresh*-1);
+		result resultSucc = minMaxAB(*it, depth+1, oppositePlayer(player), passThresh*-1, useThresh*-1, evalFunction, maxDepth);
 
 		//(b) Set NEW-VALUE to - VALUE(RESULT-SUCC).
 		int newValue = resultSucc.score * -1;
