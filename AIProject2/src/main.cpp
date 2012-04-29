@@ -79,6 +79,7 @@ int main() {
 	bool useRichAlgorithm = true; // Which algorithm to use
 	int evaluationFunction; // 1 -4 corresponding to heuristic functions
 	int maxDepth =0; //Max Depth used in deepEnough
+	int nodeCount=0;
 
 	cout << "*************************************************************************" << endl;
 	cout << "*************************************************************************" << endl;
@@ -108,7 +109,7 @@ int main() {
 	cout << "Choose Heuristic:" << endl;
 	cout << "1. Luger - DEFAULT" << endl;
 	//TODO:INSERT NAMES OF ADDITIONAL EVAL FUNCTIONS
-	cout << "2. " << endl;
+	cout << "2. Simple Score" << endl;
 	cout << "3. " << endl;
 	cout << "4. " << endl;
 
@@ -142,7 +143,7 @@ int main() {
 				}
 				res.path.push(move);
 			} else {
-				if (useRichAlgorithm) res = minMaxABAlg::minMaxAB(board, depth, player, 999,-999, evaluationFunction, maxDepth);
+				if (useRichAlgorithm) res = minMaxABAlg::minMaxAB(board, depth, player, 999,-999, nodeCount,evaluationFunction, maxDepth);
 				else {
 					//TODO: SET res = ALPHA-BETA-SEARCH()
 					AB_search abSearch(board, player, evaluationFunction,maxDepth);
@@ -156,9 +157,11 @@ int main() {
 		board[res.path.top()] = player;
 		//else turn = 999; //board[firstAvailableMove(board)] = player;
 		//Display Board
+		cout << "Total Nodes: " << nodeCount << " | Depth: " << res.bestDepth << endl;
 		displayBoard(board);
 		player = opposite(player);
 		turn++;
+		nodeCount = 0;
 	}
 
 	if (turn > 900) cout << "Sorry. There was an error"<< endl;

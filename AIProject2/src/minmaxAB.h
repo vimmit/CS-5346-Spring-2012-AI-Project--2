@@ -21,7 +21,7 @@ class minMaxABAlg {
 
 	public:
 		//methods
-		static result minMaxAB(vector<int> position, int depth, int player, int useThresh, int passThresh, int evalFunction, int maxDepth);
+		static result minMaxAB(vector<int> position, int depth, int player, int useThresh, int passThresh, int& nodeCount, int evalFunction, int maxDepth);
 
 };
 

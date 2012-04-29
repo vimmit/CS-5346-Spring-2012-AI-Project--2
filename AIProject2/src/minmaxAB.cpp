@@ -23,7 +23,7 @@ int oppositePlayer(int player) {
 	else return 1;
 }
 
-result minMaxABAlg::minMaxAB(vector<int> position, int depth, int player, int useThresh, int passThresh, int evalFunction = 1, int maxDepth = 2) {
+result minMaxABAlg::minMaxAB(vector<int> position, int depth, int player, int useThresh, int passThresh, int& nodeCount, int evalFunction = 1, int maxDepth = 2) {
 //result minMaxAB(vector<int> position, int depth, int player, int useThresh, int passThresh) {
 	//cout << "In MinMaxAB. depth: " << depth << " player:" << player << " UseThresh:" << useThresh << " PassThresh:" <<passThresh << endl;
 	result res;
@@ -38,6 +38,8 @@ result minMaxABAlg::minMaxAB(vector<int> position, int depth, int player, int us
 		//cout << "deep enough" << endl;
 		res.score = Evaluator::evaluate(position, player, evalFunction);
 		res.path.push(position[0]);
+		if (depth <= maxDepth) res.bestDepth = depth;
+		else res.bestDepth = maxDepth;
 		return res;
 	}
 	/* 2. Otherwise, generate one more ply of the tree by calling the function MOVE-GEN(Position, Player)
@@ -45,6 +47,7 @@ result minMaxABAlg::minMaxAB(vector<int> position, int depth, int player, int us
 	 */
 	vector<vector <int> > successors;
 	successors = moveGen(position, player);
+	if (!(int) successors.empty()) nodeCount += (int) successors.size();
 
 	/* 3.If SUCCESSORS is empty, there are no moves to be made;
 	 * return the same structure that 	would have been returned if DEEP-ENOUGH had returned TRUE.
@@ -53,6 +56,7 @@ result minMaxABAlg::minMaxAB(vector<int> position, int depth, int player, int us
 		//cout << "no successors" << endl;
 		res.score = Evaluator::evaluate(position, player, evalFunction);
 		res.path.push(position[0]);
+		res.bestDepth = depth;
 		return res;
 	}
 	/*4. If SUCCESSORS is not empty, then go through it, examining each element and keeping track of the best
@@ -62,7 +66,7 @@ result minMaxABAlg::minMaxAB(vector<int> position, int depth, int player, int us
 	//cout << "looping through successors" << endl;
 	for (vector<vector <int> >::iterator it = successors.begin(); it != successors.end(); ++it) {
 		//(a) Set RESULT-SUCC to MINIMAX-A-B(SUCC, Depth + 1, OPPOSlTE (Player),- Pass-Thresh, - Use-Thresh).
-		result resultSucc = minMaxAB(*it, depth+1, oppositePlayer(player), passThresh*-1, useThresh*-1, evalFunction, maxDepth);
+		result resultSucc = minMaxAB(*it, depth+1, oppositePlayer(player), passThresh*-1, useThresh*-1, nodeCount, evalFunction, maxDepth);
 
 		//(b) Set NEW-VALUE to - VALUE(RESULT-SUCC).
 		int newValue = resultSucc.score * -1;
@@ -81,6 +85,7 @@ result minMaxABAlg::minMaxAB(vector<int> position, int depth, int player, int us
 			 */
 			bestPath = resultSucc.path;
 			bestPath.push(it->at(0));
+			res.bestDepth = resultSucc.bestDepth;
 			//cout << bestPath.top();
 		}
 
@@ -95,6 +100,7 @@ result minMaxABAlg::minMaxAB(vector<int> position, int depth, int player, int us
 			res.score = passThresh;
 			res.path = bestPath;
 			res.path.push(it->at(0));
+			res.bestDepth = depth;
 			return res;
 		}
 	}

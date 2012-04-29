@@ -104,6 +104,9 @@ int checkWin(vector<int> board) {
 
 int Evaluator::evaluate(vector<int> board, int max, int evalFunction = 1) {
 	int score;
+	int min = oppositePlayer2(max);
+	int minScore = 0;
+	int maxScore = 0;
 
 	int checkWinResult = checkWin(board);
 	if (checkWinResult > 0) {
@@ -116,8 +119,21 @@ int Evaluator::evaluate(vector<int> board, int max, int evalFunction = 1) {
 
 	switch (evalFunction) {
 	case 2:
-		//TODO: Fill in
-		score = 0;
+		//Simple Score
+		for (int i=1; i < 10; i++) {
+			//3 points for corners
+			if ((i==8) || (i==4) || (i==6) || (i==2)) {
+				if (board[i] == max) maxScore += 3;
+				if (board[i] == min) minScore += 3;
+			} else if (i==5) { //4 points for center
+				if (board[i] == max) maxScore += 4;
+				if (board[i] == min) minScore += 4;
+			} else { //2 points for
+				if (board[i] == max) maxScore += 2;
+				if (board[i] == min) minScore += 2;
+			}
+		}
+		score = maxScore - minScore;
 		break;
 	case 3:
 		//TODO: Fill in
@@ -132,7 +148,6 @@ int Evaluator::evaluate(vector<int> board, int max, int evalFunction = 1) {
 		vector<winningRow> winningRows;
 		winningRows.clear();
 		initWinningRows(winningRows);
-		int min = oppositePlayer2(max);
 
 		//Player 1 score = # Winning Vectors - rows killed by player 2.
 		for (int i = 1; i < 10; i++) {
@@ -161,7 +176,7 @@ int Evaluator::evaluate(vector<int> board, int max, int evalFunction = 1) {
 			}
 		}
 
-		int maxScore = (int) winningRows.size();
+		maxScore = (int) winningRows.size();
 		//Reset winningRows
 		winningRows.clear();
 		initWinningRows(winningRows);
@@ -193,7 +208,7 @@ int Evaluator::evaluate(vector<int> board, int max, int evalFunction = 1) {
 				}
 			}
 		}
-		int minScore = (int) winningRows.size();
+		minScore = (int) winningRows.size();
 
 		//Score = MaxScore = MinScore
 		score = maxScore - minScore;

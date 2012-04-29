@@ -16,6 +16,7 @@ using namespace std;
 struct result {
 	int score;
 	stack<int> path;
+	int bestDepth;
 };
 
 vector<vector <int> > moveGen(vector<int> position, int player);
