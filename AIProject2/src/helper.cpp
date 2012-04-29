@@ -9,7 +9,7 @@
 #include <vector>
 using namespace std;
 
-vector<vector <int> > moveGen(vector<int> position, int player) {
+vector<vector <int> > moveGen(vector<int> position, int player, int& nodeCount) {
 	//Return a vector of all possible moves for evaluation
 	vector<vector <int> > results;
 	results.clear();
@@ -23,6 +23,7 @@ vector<vector <int> > moveGen(vector<int> position, int player) {
 			boardCopy[0] = i;
 			boardCopy[i] = player;
 			results.push_back(boardCopy);
+			nodeCount++;
 		}
 	}
 	return results;

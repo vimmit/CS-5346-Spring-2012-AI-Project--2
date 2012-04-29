@@ -46,8 +46,8 @@ result minMaxABAlg::minMaxAB(vector<int> position, int depth, int player, int us
 	 * and setting SUCCESSORS to the list it returns.
 	 */
 	vector<vector <int> > successors;
-	successors = moveGen(position, player);
-	if (!(int) successors.empty()) nodeCount += (int) successors.size();
+	successors = moveGen(position, player, nodeCount);
+	//if (!(int) successors.empty()) nodeCount += (int) successors.size();
 
 	/* 3.If SUCCESSORS is empty, there are no moves to be made;
 	 * return the same structure that 	would have been returned if DEEP-ENOUGH had returned TRUE.

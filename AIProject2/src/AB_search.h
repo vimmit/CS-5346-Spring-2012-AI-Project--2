@@ -15,23 +15,21 @@ class AB_search{
 		int player;				//holds the current player
 		int heuristic_number;	//holds the number for the heuristic that will be used
 		int maxDepth;			//holds the max depth for deepEnough evaluation
+		int num_of_nodes;		//holds the number of nodes generated
 
 		//helper functions
-		int curr_player();
+		int oppositePlayer();
 		int min(int val1, int val2);
 		int max(int val1, int val2);
-
 		vector<int> actions(vector<int> state);
-
-		result max_value(vector<int> state, int _alpha, int _beta, int heuristic_num, int depth);
-		result min_value(vector<int> state, int _alpha, int _beta, int heuristic_num, int depth);
+		result max_value(vector<int> state, int _alpha, int _beta, int heuristic_num, int depth, int& nodeCount);
+		result min_value(vector<int> state, int _alpha, int _beta, int heuristic_num, int depth, int& nodeCount);
 
 	public:
 		//constructor
 		AB_search(vector<int>& board, int player, int heuristic_number, int maxDepth);
 
 		//public method
-		result evaluate();
-
+		result evaluate(int& nodeCount);
 };
 #endif

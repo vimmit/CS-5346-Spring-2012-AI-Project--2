@@ -17,9 +17,10 @@ struct result {
 	int score;
 	stack<int> path;
 	int bestDepth;
+	int num_of_nodes;
 };
 
-vector<vector <int> > moveGen(vector<int> position, int player);
+vector<vector <int> > moveGen(vector<int> position, int player, int& nodeCount);
 bool hasWinner(vector<int> board);
 bool deepEnough(vector<int> position, int depth, int maxDepth);
 

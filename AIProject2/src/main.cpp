@@ -145,10 +145,9 @@ int main() {
 			} else {
 				if (useRichAlgorithm) res = minMaxABAlg::minMaxAB(board, depth, player, 999,-999, nodeCount,evaluationFunction, maxDepth);
 				else {
-					//TODO: SET res = ALPHA-BETA-SEARCH()
 					AB_search abSearch(board, player, evaluationFunction,maxDepth);
-					result absearchresult = abSearch.evaluate();
-					cout << "AB result:" << absearchresult.path.top() << "|" << endl;
+					result absearchresult = abSearch.evaluate(nodeCount);
+					//cout << "AB result:" << absearchresult.path.top() << "|" << endl;
 					res.path.push(absearchresult.path.top());
 				}
 				depth++;
@@ -157,7 +156,9 @@ int main() {
 		board[res.path.top()] = player;
 		//else turn = 999; //board[firstAvailableMove(board)] = player;
 		//Display Board
-		cout << "Total Nodes: " << nodeCount << " | Depth: " << res.bestDepth << endl;
+		cout << "Total Nodes: " << nodeCount;
+		if (res.bestDepth > 0) cout << " | Depth: " << res.bestDepth << endl;
+		else cout << endl;
 		displayBoard(board);
 		player = opposite(player);
 		turn++;
